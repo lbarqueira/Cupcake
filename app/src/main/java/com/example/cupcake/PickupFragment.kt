@@ -20,13 +20,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cupcake.databinding.FragmentPickupBinding
+import com.example.cupcake.model.OrderViewModel
 
 /**
  * [PickupFragment] allows the user to choose a pickup date for the cupcake order.
  */
 class PickupFragment : Fragment() {
+
+    private val sharedViewModel: OrderViewModel by activityViewModels()
 
     // Binding object instance corresponding to the fragment_pickup.xml layout
     // This property is non-null between the onCreateView() and onDestroyView() lifecycle callbacks,
@@ -46,6 +50,9 @@ class PickupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+            lifecycleOwner =
+                viewLifecycleOwner // This will set the lifecycle owner on the binding object. By setting the lifecycle owner, the app will be able to observe LiveData objects.
+            viewModel = sharedViewModel
             nextButton.setOnClickListener { goToNextScreen() }
         }
     }
