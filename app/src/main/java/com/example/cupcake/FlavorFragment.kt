@@ -53,14 +53,15 @@ class FlavorFragment : Fragment() {
             lifecycleOwner =
                 viewLifecycleOwner // This will set the lifecycle owner on the binding object. By setting the lifecycle owner, the app will be able to observe LiveData objects.
             viewModel = sharedViewModel
-            nextButton.setOnClickListener { goToNextScreen() }
+            // nextButton.setOnClickListener { goToNextScreen() }
+            flavorFragment = this@FlavorFragment
         }
     }
 
     /**
      * Navigate to the next screen to choose pickup date.
      */
-    private fun goToNextScreen() {
+    fun goToNextScreen() {
         // Toast.makeText(activity, "Next", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)
     }

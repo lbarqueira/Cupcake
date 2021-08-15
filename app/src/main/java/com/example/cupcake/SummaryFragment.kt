@@ -54,7 +54,8 @@ class SummaryFragment : Fragment() {
             lifecycleOwner =
                 viewLifecycleOwner // This will set the lifecycle owner on the binding object. By setting the lifecycle owner, the app will be able to observe LiveData objects.
             viewModel = sharedViewModel
-            sendButton.setOnClickListener { sendOrder() }
+            // sendButton.setOnClickListener { sendOrder() }
+            summaryFragment = this@SummaryFragment
         }
     }
 
