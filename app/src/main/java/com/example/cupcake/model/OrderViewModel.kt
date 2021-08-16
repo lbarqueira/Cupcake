@@ -19,19 +19,21 @@ class OrderViewModel : ViewModel() {
     private val _flavor = MutableLiveData("")
     val flavor: LiveData<String> = _flavor
 
-    private val _date = MutableLiveData("")
+    val dateOptions = getPickupOptions()
+
+    private val _date = MutableLiveData(dateOptions[0])
     val date: LiveData<String> = _date
 
     // use Transformations.map() method to format the price to use the local currency.
     // You'll transform the original price as a decimal value (LiveData<Double>) into a string value (LiveData<String>).
-    private val _price = MutableLiveData<Double>()
+    private val _price = MutableLiveData<Double>(0.0)
 
     // val price: LiveData<Double> = _price
     val price: LiveData<String> = Transformations.map(_price) {
         NumberFormat.getCurrencyInstance().format(it)
     }
 
-    val dateOptions = getPickupOptions()
+
 
     fun setQuantity(numberCupcakes: Int) {
         _quantity.value = numberCupcakes
@@ -77,6 +79,16 @@ class OrderViewModel : ViewModel() {
             calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
         }
         _price.value = calculatedPrice
+    }
+
+    /**
+     * Reset the order by using initial default values for the quantity, flavor, date, and price.
+     */
+    fun resetOrder() {
+        _quantity.value = 0
+        _flavor.value = ""
+        _date.value = dateOptions[0]
+        _price.value = 0.0
     }
 
 }
